@@ -23,7 +23,7 @@ const CTASection: React.FC = () => {
 
   return (
     <>
-      <section id="contact" className={`py-20 md:py-32 ${DARKER_BG_COLOR}`}>
+      <section id="contact" className={`py-24 md:py-36 ${DARKER_BG_COLOR}`}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 
             className={`text-3xl md:text-4xl lg:text-5xl font-bold ${TEXT_COLOR_HEADLINE} mb-6 cursor-pointer`}
@@ -94,7 +94,7 @@ const CTASection: React.FC = () => {
           </div>
 
           <p className={`${TEXT_COLOR_MUTED} text-sm`}>
-              Or connect with me on <a href="#" className={`text-${ACCENT_COLOR_PRIMARY} hover:underline font-medium`}>LinkedIn</a> for a quick chat.
+              Or connect with me on <a href="https://www.linkedin.com/in/jacob-kazadi-kayembe-2b89a9193/" target="_blank" rel="noopener noreferrer" className={`text-${ACCENT_COLOR_PRIMARY} hover:underline font-medium`}>LinkedIn</a> for a quick chat.
           </p>
         </div>
       </section>

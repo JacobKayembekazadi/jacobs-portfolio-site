@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { PERSONAL_INFO, TEXT_COLOR_HEADLINE, TEXT_COLOR_MUTED, TECH_STACK_HERO_ITEMS, TEXT_COLOR_LIGHT, MAIN_BG_COLOR } from '../constants';
-import { VerifiedBadgeIcon } from './icons/InterfaceIcons'; // New Icon for badge
 import LeadQualificationSystem from './LeadQualificationSystem';
 
 const HeroSection: React.FC = () => {
@@ -10,23 +9,17 @@ const HeroSection: React.FC = () => {
     console.log('Marketing advice session completed:', data);
   };
   return (
-    <section className={`py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center flex flex-col items-center justify-center min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-80px)] ${MAIN_BG_COLOR}`}>
+    <section className={`py-16 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center flex flex-col items-center justify-center min-h-[calc(100vh-100px)] ${MAIN_BG_COLOR}`}>
       
-      {/* Profile Image */}
-      <img
-        src={PERSONAL_INFO.profileImageUrl}
-        alt={PERSONAL_INFO.name}
-        className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover mb-4 border-2 border-gray-700 shadow-lg"
-      />
-
-      {/* Verified Expert Badge */}
-      <div className="flex items-center bg-gray-800 bg-opacity-80 text-light px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-6 shadow">
-        <VerifiedBadgeIcon className="w-4 h-4 mr-1.5 text-primary" />
-        Verified Expert
-        <span className="mx-1.5 text-gray-500">|</span> 
-        <a href={`https://${PERSONAL_INFO.contraUrl}`} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-            {PERSONAL_INFO.contraUrl}
-        </a>
+      {/* Profile Image - Updated with new image */}
+      <div className="relative mb-6">
+        <img
+          src="/images/jacob-avatar.png.png"
+          alt={PERSONAL_INFO.name}
+          className="w-32 h-32 md:w-36 md:h-36 rounded-full object-cover shadow-2xl border-4 border-gray-700"
+        />
+        {/* Subtle glow effect around image */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-xl -z-10"></div>
       </div>
 
       {/* Main Headline with Gradient */}
@@ -44,7 +37,7 @@ const HeroSection: React.FC = () => {
       </p>
 
       {/* Action Buttons */}
-      <div className="flex flex-wrap justify-center gap-4 mb-16">
+      <div className="flex flex-wrap justify-center gap-4 mb-12">
         <button
           onClick={() => setShowQualification(true)}
           className={`px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full text-white hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-medium shadow-xl hover:shadow-blue-500/40 transform hover:scale-105 flex items-center space-x-2`}

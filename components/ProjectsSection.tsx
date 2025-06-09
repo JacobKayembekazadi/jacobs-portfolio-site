@@ -1,11 +1,11 @@
 import React from 'react';
 import { PROJECTS_DATA, TEXT_COLOR_HEADLINE, TEXT_COLOR_MUTED, ACCENT_COLOR_PRIMARY, CARD_BG_COLOR } from '../constants';
 import { Project, ProjectFeature, WorkflowNode } from '../types';
-import { ArrowRightIcon } from './icons/InterfaceIcons'; // PlusIconCircle removed as it's part of workflow display
+// ArrowRightIcon removed as "Explore All Projects" button was removed
 
 const FeatureColumn: React.FC<{ feature: ProjectFeature }> = ({ feature }) => (
-  <div className="flex-1 p-3 md:p-4">
-    <div className="flex items-center mb-1.5">
+  <div className="flex-1 p-2 md:p-3">
+    <div className="flex items-center mb-1">
       {feature.icon && <feature.icon className={`w-4 h-4 text-${ACCENT_COLOR_PRIMARY} mr-2`} />}
       <h4 className="text-sm font-semibold text-light">{feature.title}</h4>
     </div>
@@ -50,7 +50,7 @@ const WorkflowNodeDisplay: React.FC<{
   return (
     <div className={`flex items-center ${node.isPlaceholder ? 'self-stretch' : ''}`}>
       <div className={`
-        backdrop-blur-sm rounded-xl p-4 text-center w-36 h-32 flex flex-col justify-center items-center 
+        backdrop-blur-sm rounded-xl p-3 text-center w-32 h-28 flex flex-col justify-center items-center 
         transition-all duration-300 hover:scale-105 hover:shadow-xl relative overflow-hidden
         ${getNodeStyle()}
         ${node.isPlaceholder ? 'cursor-pointer flex-grow' : ''}
@@ -91,17 +91,17 @@ const WorkflowNodeDisplay: React.FC<{
 
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const cardContent = (
-    <div className={`${CARD_BG_COLOR} rounded-2xl overflow-hidden shadow-xl border border-gray-700 hover:border-${ACCENT_COLOR_PRIMARY} transition-all duration-300 group flex flex-col h-full relative hover:shadow-${ACCENT_COLOR_PRIMARY}/20`}>
-      <div className="relative z-10 flex flex-col h-full">
-        {/* Features Header - Adapted Style */}
+    <div className={`${CARD_BG_COLOR} rounded-2xl overflow-hidden shadow-xl border border-gray-700 hover:border-${ACCENT_COLOR_PRIMARY} transition-all duration-300 group flex flex-col relative hover:shadow-${ACCENT_COLOR_PRIMARY}/20`}>
+      <div className="relative z-10 flex flex-col">
+        {/* Features Header - More Compact */}
         <div className="bg-gray-800 bg-opacity-50 flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-gray-700">
           {project.features.map((feature, index) => (
             <FeatureColumn key={index} feature={feature} />
           ))}
         </div>
 
-        {/* Workflow Visualization Area - Modern Design */}
-        <div className="flex-grow p-6 md:p-8 relative">
+        {/* Workflow Visualization Area - Full Diagram Display */}
+        <div className="flex-grow p-4 md:p-6 relative">
           {/* Background with modern gradient and pattern */}
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800"></div>
           <div className="absolute inset-0 opacity-10" 
@@ -114,9 +114,9 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                }}>
           </div>
           
-          <div className="relative z-10 space-y-6">
+          <div className="relative z-10 space-y-4 flex flex-col justify-center">
             {/* Main workflow line */}
-            <div className="flex items-center justify-start overflow-x-auto pb-2">
+            <div className="flex items-center justify-start pb-2">
               {project.workflow.line1.map((node, index) => (
                 <WorkflowNodeDisplay 
                   key={node.id} 
@@ -133,7 +133,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                 <div className="flex flex-col items-center">
                   {/* Vertical connector with glow effect */}
                   <div className="relative">
-                    <div className="w-px h-8 bg-gradient-to-b from-blue-400/50 to-purple-400/50"></div>
+                    <div className="w-px h-6 bg-gradient-to-b from-blue-400/50 to-purple-400/50"></div>
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-purple-400/50 rounded-full animate-pulse"></div>
                   </div>
                   <div className="w-3 h-3 bg-purple-400 rounded-full mb-2 shadow-lg shadow-purple-400/50"></div>
@@ -177,14 +177,14 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
           </div>
         </div>
 
-        {/* Enhanced project title section */}
-        <div className={`p-6 ${CARD_BG_COLOR} border-t border-gray-700/80 relative`}>
+        {/* Enhanced project title section - More Compact */}
+        <div className={`p-4 md:p-5 ${CARD_BG_COLOR} border-t border-gray-700/80 relative`}>
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent"></div>
-          <h3 className={`text-xl font-bold ${TEXT_COLOR_HEADLINE} group-hover:text-${ACCENT_COLOR_PRIMARY} transition-colors duration-200 mb-2`}>
+          <h3 className={`text-lg md:text-xl font-bold ${TEXT_COLOR_HEADLINE} group-hover:text-${ACCENT_COLOR_PRIMARY} transition-colors duration-200 mb-2`}>
             {project.mainTitle}
           </h3>
           {/* Add workflow completion indicator */}
-          <div className="flex items-center space-x-2 mt-3">
+          <div className="flex items-center space-x-2 mt-2">
             <div className="flex space-x-1">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div key={i} className="w-2 h-2 bg-blue-400/30 rounded-full group-hover:bg-blue-400/60 transition-colors duration-300"></div>
@@ -198,17 +198,17 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   );
 
   return project.url ? (
-    <a href={project.url} target="_blank" rel="noopener noreferrer" className="block h-full group">
+    <a href={project.url} target="_blank" rel="noopener noreferrer" className="block group">
       {cardContent}
     </a>
   ) : (
-    <div className="h-full group">{cardContent}</div>
+    <div className="group">{cardContent}</div>
   );
 };
 
 const ProjectsSection: React.FC = () => {
   return (
-    <section id="projects" className="py-16 md:py-24 ${MAIN_BG_COLOR}"> {/* MAIN_BG_COLOR is default, can use DARKER_BG_COLOR for contrast */}
+    <section id="projects" className="py-20 md:py-28 ${MAIN_BG_COLOR}"> {/* Increased spacing for better section separation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12 md:mb-16">
           <h2 className={`text-3xl md:text-4xl font-bold ${TEXT_COLOR_HEADLINE} mb-4`}>Featured Work</h2>
@@ -216,17 +216,13 @@ const ProjectsSection: React.FC = () => {
             Selected case studies showcasing automated workflows and strategic AI applications that drive business results.
           </p>
         </div>
-        <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-stretch">
+        {/* 2-Column Grid Layout for Better Workflow Display */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-start">
           {PROJECTS_DATA.map((project: Project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
         </div>
-        <div className="text-center mt-16">
-            <a href="#" className={`inline-flex items-center text-lg font-medium text-${ACCENT_COLOR_PRIMARY} hover:text-opacity-80 group transition-colors`}>
-                Explore All Projects
-                <ArrowRightIcon className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-            </a>
-        </div>
+
       </div>
     </section>
   );

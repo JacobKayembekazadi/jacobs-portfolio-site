@@ -18,7 +18,7 @@ const StrengthCard: React.FC<{ strength: Strength }> = ({ strength }) => {
 
 const CoreStrengthsSection: React.FC = () => {
   return (
-    <section id="strengths" className={`py-16 md:py-24 ${DARKER_BG_COLOR} rounded-none md:rounded-3xl my-0 md:my-20 mx-0 md:max-w-7xl md:mx-auto`}> {/* Athos "About" section style */}
+    <section id="strengths" className={`py-20 md:py-28 ${DARKER_BG_COLOR} rounded-none md:rounded-3xl my-0 md:my-24 mx-0 md:max-w-7xl md:mx-auto`}> {/* Athos "About" section style */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12 md:mb-16 text-center md:text-left">
           <h2 className={`text-3xl md:text-4xl font-bold ${TEXT_COLOR_HEADLINE} mb-4`}>About Me & Core Strengths</h2>

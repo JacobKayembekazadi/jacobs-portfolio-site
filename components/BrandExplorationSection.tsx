@@ -12,45 +12,107 @@ interface CarouselProject {
 }
 
 const BrandExplorationSection: React.FC = () => {
-  // Transform existing data to new carousel format
+  // Transform existing data to new carousel format with enhanced content
   const carouselProjects: CarouselProject[] = [
     {
       id: 'brand1',
       imageUrl: '/images/brand/aethel-headphones.jpg.jpg',
-      category: 'Product Design - AI Generated',
+      category: 'PRODUCT DESIGN - AI GENERATED',
       title: 'AETHEL AUDIO LIFESTYLE',
-      description: 'AI-assisted product photography for premium headphones.',
+      description: 'AI-assisted product photography for premium headphones, showcasing sophisticated brand positioning through automated content generation.',
       altText: 'Premium headphones on a wooden table with coffee and plant',
     },
     {
       id: 'brand2',
       imageUrl: '/images/brand/earth-day-island.jpg.jpg',
-      category: 'Environmental Campaign - AI Imagery',
+      category: 'ENVIRONMENTAL CAMPAIGN - AI IMAGERY',
       title: 'HAPPY EARTH DAY CAMPAIGN',
-      description: 'AI-generated imagery for environmental awareness and conservation.',
+      description: 'AI-generated imagery for environmental awareness and conservation, creating compelling visual narratives for sustainability initiatives.',
       altText: 'Heart-shaped island with lush greenery surrounded by ocean and wildlife',
     },
     {
       id: 'brand3',
       imageUrl: '/images/brand/mangrove-website.jpg.jpg',
-      category: 'Web Design - AI Concepts',
+      category: 'WEB DESIGN - AI CONCEPTS',
       title: 'NATURE BREATHES WEBSITE',
-      description: 'Environmental website design featuring AI-generated mangrove conservation visuals.',
+      description: 'Environmental website design featuring AI-generated mangrove conservation visuals, blending technical excellence with environmental advocacy.',
       altText: 'Website design showing mangrove trees on an island',
     },
     {
       id: 'brand4',
       imageUrl: '/images/brand/mangrove-illustration.jpg.jpg',
-      category: 'Illustrative Design - AI Art',
-      title: 'ECO-DESIGN',
-      description: 'Artistic representation of ecological ecosystems with AI-generated illustrations.',
+      category: 'ILLUSTRATIVE DESIGN - AI ART',
+      title: 'ECO-DESIGN ILLUSTRATION',
+      description: 'Artistic representation of ecological ecosystems with AI-generated illustrations, demonstrating the fusion of technology and environmental storytelling.',
       altText: 'Illustrated mangrove trees on a small island surrounded by water',
+    },
+    {
+      id: 'brand5',
+      imageUrl: '/images/brand/mobile-island-ar.jpg.jpg',
+      category: 'AR EXPERIENCE - AI INNOVATION',
+      title: 'PLANT HOPE AR EXPERIENCE',
+      description: 'Augmented reality concept for environmental awareness on mobile platforms, merging digital innovation with conservation messaging.',
+      altText: 'Mobile phone displaying an AR island with mangroves emerging from screen',
+    },
+    {
+      id: 'brand6',
+      imageUrl: '/images/brand/salt-conversation.jpg.jpg',
+      category: 'UI/UX CONCEPTS - AI DESIGN',
+      title: 'CONVERSATIONAL UI CONCEPTS',
+      description: 'Exploring AI-driven user interface design for interactive experiences, demonstrating creative approaches to digital communication.',
+      altText: 'Creative composition with salt shakers and miniature figures with chat bubble',
+    },
+    {
+      id: 'brand7',
+      imageUrl: '/images/brand/salt-comment.jpg.png',
+      category: 'SOCIAL ENGAGEMENT - AI CREATIVITY',
+      title: 'SOCIAL ENGAGEMENT DESIGN',
+      description: 'Interactive social media concepts with playful visual metaphors, showcasing AI-generated content for digital engagement strategies.',
+      altText: 'Salt shaker with miniature figure and comment bubble',
+    },
+    {
+      id: 'brand8',
+      imageUrl: '/images/brand/sync-dinner.jpg.png',
+      category: 'APP BRANDING - AI VISUALS',
+      title: 'SYNC FOOD DELIVERY',
+      description: 'Modern food delivery app branding with AI-enhanced progress visualization, demonstrating brand innovation in the digital marketplace.',
+      altText: 'Food delivery concept showing curry dish with loading bar design',
+    },
+    {
+      id: 'brand9',
+      imageUrl: '/images/brand/billboard-tide.jpg.png',
+      category: 'OUTDOOR ADVERTISING - AI CAMPAIGNS',
+      title: 'HOLD BACK THE TIDE BILLBOARD',
+      description: 'Impactful outdoor advertising for environmental conservation, utilizing AI-generated visuals for powerful public awareness campaigns.',
+      altText: 'Billboard showing dramatic wave around island with conservation message',
+    },
+    {
+      id: 'brand10',
+      imageUrl: '/images/brand/building-wave.jpg.png',
+      category: 'URBAN INSTALLATIONS - AI ART',
+      title: 'URBAN ENVIRONMENTAL CAMPAIGN',
+      description: 'Building-scale environmental awareness installation, demonstrating AI-powered visual storytelling for urban conservation initiatives.',
+      altText: 'Building corner with large-scale wave and island projection for mangrove restoration',
     },
   ];
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [hoveredImageIndex, setHoveredImageIndex] = useState<number | null>(null);
+  
+  // Carousel display logic - show 4 cards at a time like reference
+  const cardsToShow = 4;
+  const getVisibleCards = () => {
+    const visibleCards = [];
+    for (let i = 0; i < cardsToShow; i++) {
+      const index = (activeIndex + i) % carouselProjects.length;
+      visibleCards.push({
+        ...carouselProjects[index],
+        originalIndex: index,
+        displayIndex: i
+      });
+    }
+    return visibleCards;
+  };
 
   const handleProjectChange = (newIndex: number) => {
     if (newIndex === activeIndex || isTransitioning) return;
@@ -76,195 +138,152 @@ const BrandExplorationSection: React.FC = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       handleNext();
-    }, 10000); // Change every 10 seconds
+    }, 15000); // Change every 15 seconds
 
     return () => clearInterval(timer);
   }, [activeIndex]);
 
   const currentProject = carouselProjects[activeIndex];
+  const visibleCards = getVisibleCards();
 
   return (
     <section id="brand-explorations" className="relative w-full h-screen overflow-hidden">
-      {/* Dynamic Background */}
+      {/* Dynamic Background - Full Coverage */}
       <div 
-        className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out ${isTransitioning ? 'scale-110' : 'scale-100'}`}
+        className={`absolute inset-0 bg-contain bg-center bg-no-repeat transition-all duration-1000 ease-in-out ${isTransitioning ? 'scale-110' : 'scale-100'}`}
         style={{
           backgroundImage: `url(${currentProject.imageUrl})`,
         }}
       >
+        {/* Background fill for areas not covered by the image */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-black -z-10"></div>
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-        {/* Gradient overlay from left */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+        {/* Gradient overlay for better contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20"></div>
       </div>
 
-      {/* Hover Image Preview */}
-      {hoveredImageIndex !== null && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
-          <div className="relative">
-            <div 
-              className="w-96 h-64 rounded-xl overflow-hidden shadow-2xl transform transition-all duration-300 scale-110"
-              style={{
-                backgroundImage: `url(${carouselProjects[hoveredImageIndex].imageUrl})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <div className="absolute bottom-4 left-4 right-4">
-                <h3 className="text-white font-semibold text-lg mb-1">
-                  {carouselProjects[hoveredImageIndex].title}
-                </h3>
-                <p className="text-white/80 text-sm">
-                  {carouselProjects[hoveredImageIndex].description}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Main Content Container */}
-      <div className="relative z-10 h-full flex">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-          
-          {/* Left Content Area - Prominent like reference */}
-          <div className="flex-1 max-w-2xl mr-8">
-            <div className={`transform transition-all duration-600 ${isTransitioning ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'}`}>
-              
-              {/* Category Text - Small and subtle like reference */}
-              <div className="text-white/80 text-sm font-medium tracking-wider uppercase mb-2 flex items-center">
-                <div className="w-8 h-px bg-white/60 mr-3"></div>
-                {currentProject.category}
-              </div>
-              
-              {/* Main Title - Large and bold like "SAINT ANTONIEN" */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
-                {currentProject.title}
-              </h1>
-              
-              {/* Description - Readable paragraph */}
-              <p className="text-white/90 text-lg md:text-xl mb-8 leading-relaxed max-w-lg font-light">
-                {currentProject.description}
-              </p>
-              
-              {/* CTA Button - Prominent like reference */}
-              <button className="group inline-flex items-center px-8 py-4 bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 text-white font-medium rounded-full transition-all duration-300 transform hover:scale-105">
-                <span>DISCOVER PROJECT</span>
-                <svg className="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          {/* Right Thumbnail Area - Horizontal like reference */}
-          <div className="flex-shrink-0">
-            <div className="flex flex-col items-end">
-              
-              {/* Horizontal Thumbnails Row - Made Bigger */}
-              <div className="flex space-x-5 mb-8">
-                {carouselProjects.map((project, index) => (
-                  <div
-                    key={project.id}
-                    className={`
-                      relative w-44 h-32 md:w-52 md:h-36 rounded-xl overflow-hidden cursor-pointer
-                      transition-all duration-400 transform
-                      ${index === activeIndex 
-                        ? 'scale-100 ring-3 ring-white/70 shadow-2xl' 
-                        : 'scale-90 opacity-70 hover:opacity-90 hover:scale-95'
-                      }
-                    `}
-                    onClick={() => handleProjectChange(index)}
-                    onMouseEnter={() => setHoveredImageIndex(index)}
-                    onMouseLeave={() => setHoveredImageIndex(null)}
-                  >
-                    <img
-                      src={project.imageUrl}
-                      alt={project.altText}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                    />
-                    {/* Overlay for inactive items */}
-                    {index !== activeIndex && (
-                      <div className="absolute inset-0 bg-black/40 transition-opacity duration-300 hover:bg-black/20"></div>
-                    )}
-                    {/* Project title overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
-                      <div className="text-white text-sm font-medium text-center">
-                        {project.title.split(' ').slice(0, 2).join(' ')}
-                      </div>
-                    </div>
-                    {/* Hover indicator */}
-                    <div className="absolute top-3 right-3 opacity-0 hover:opacity-100 transition-opacity duration-300">
-                      <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Navigation Controls - Positioned like reference */}
-              <div className="flex items-center space-x-6">
-                {/* Arrow Navigation */}
-                <div className="flex space-x-4">
-                  <button
-                    onClick={handlePrevious}
-                    className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white rounded-full transition-all duration-200 hover:scale-110"
-                    aria-label="Previous project"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-                  
-                  <button
-                    onClick={handleNext}
-                    className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white rounded-full transition-all duration-200 hover:scale-110"
-                    aria-label="Next project"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
-
-                {/* Progress Indicator - Large like "01" in reference */}
-                <div className="text-white text-right">
-                  <div className="text-4xl font-light tracking-wider">
-                    {String(activeIndex + 1).padStart(2, '0')}
-                  </div>
-                  <div className="text-xs text-white/60 tracking-wider">
-                    / {String(carouselProjects.length).padStart(2, '0')}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Section Header - Positioned at top with better styling */}
+      {/* Section Header - Top Center */}
       <div className="absolute top-8 left-0 right-0 z-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-2xl md:text-3xl font-light text-white/90 mb-2 tracking-wide">
+            <h2 className="text-3xl md:text-4xl font-light text-white/95 mb-3 tracking-wide">
               AI-Powered Brand Explorations
             </h2>
-            <p className="text-white/70 text-sm md:text-base max-w-2xl mx-auto font-light">
-              A showcase of unique brand concepts and visual identities generated with AI.
+            <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto font-light">
+              A showcase of unique brand concepts and visual identities generated with AI
             </p>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator (Optional) */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-        <div className="flex flex-col items-center text-white/60">
-          <div className="text-xs tracking-wider mb-2">SCROLL</div>
-          <div className="w-px h-8 bg-white/40"></div>
+      {/* Main Content Container - Full Width for Carousel */}
+      <div className="relative z-10 h-full flex flex-col">
+        {/* Carousel Cards Area - Centered and Larger */}
+        <div className="flex-1 flex items-center justify-center">
+          <div className="flex space-x-6 px-8">
+            {visibleCards.map((card, displayIndex) => (
+              <div
+                key={`${card.id}-${card.originalIndex}`}
+                className={`
+                  relative cursor-pointer rounded-2xl overflow-hidden shadow-2xl
+                  transition-all duration-500 ease-out transform
+                  ${displayIndex === 0 
+                    ? 'w-80 h-96 md:w-96 md:h-[28rem] scale-105 shadow-white/40' 
+                    : displayIndex === 1
+                    ? 'w-72 h-88 md:w-80 md:h-96 scale-100 hover:scale-105'
+                    : 'w-64 h-80 md:w-72 md:h-88 scale-95 hover:scale-100 opacity-90'
+                  }
+                `}
+                onClick={() => handleProjectChange(card.originalIndex)}
+              >
+                {/* Background Image - Full Display */}
+                <img
+                  src={card.imageUrl}
+                  alt={card.altText}
+                  className="absolute inset-0 w-full h-full object-contain transition-transform duration-500"
+                />
+                
+                {/* Background fill for better presentation */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black -z-10"></div>
+                
+                {/* Overlay for better text readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                
+                {/* Card Content */}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  {/* Main Title */}
+                  <h3 className={`
+                    text-white font-bold tracking-tight leading-tight mb-2
+                    ${displayIndex === 0 
+                      ? 'text-2xl md:text-3xl' 
+                      : displayIndex === 1
+                      ? 'text-xl md:text-2xl'
+                      : 'text-lg md:text-xl'
+                    }
+                  `}>
+                    {card.title}
+                  </h3>
+                  
+                  {/* Category Subtitle */}
+                  <div className={`
+                    text-white/85 text-sm md:text-base font-medium tracking-wide uppercase
+                    ${displayIndex === 0 ? 'opacity-100' : 'opacity-85'}
+                  `}>
+                    {card.category.split(' - ')[0]}
+                  </div>
+                </div>
+                
+                {/* Active indicator */}
+                {displayIndex === 0 && (
+                  <div className="absolute top-6 left-6 w-3 h-3 bg-white rounded-full shadow-lg"></div>
+                )}
+                
+                {/* Hover effect for non-active cards */}
+                {displayIndex !== 0 && (
+                  <div className="absolute inset-0 bg-black/20 hover:bg-black/10 transition-all duration-300"></div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation Controls - Bottom Center */}
+        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-30">
+          <div className="flex items-center space-x-8">
+            {/* Arrow Navigation */}
+            <button
+              onClick={handlePrevious}
+              className="w-14 h-14 bg-white/20 backdrop-blur-sm border border-white/40 hover:bg-white/30 text-white rounded-full transition-all duration-300 hover:scale-110 flex items-center justify-center"
+              aria-label="Previous project"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            
+            <button
+              onClick={handleNext}
+              className="w-14 h-14 bg-white/20 backdrop-blur-sm border border-white/40 hover:bg-white/30 text-white rounded-full transition-all duration-300 hover:scale-110 flex items-center justify-center"
+              aria-label="Next project"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Progress Indicator - Bottom Right */}
+        <div className="absolute bottom-20 right-10 z-30">
+          <div className="text-white text-right">
+            <div className="text-6xl font-light tracking-wider leading-none">
+              {String(activeIndex + 1).padStart(2, '0')}
+            </div>
+            <div className="text-base text-white/70 tracking-wider mt-2">
+              / {String(carouselProjects.length).padStart(2, '0')}
+            </div>
+          </div>
         </div>
       </div>
     </section>

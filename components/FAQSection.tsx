@@ -32,7 +32,7 @@ const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className={`py-16 md:py-24 ${DARKER_BG_COLOR}`}>
+    <section id="faq" className={`py-20 md:py-28 ${DARKER_BG_COLOR}`}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
           <h2 className={`text-3xl md:text-4xl font-bold ${TEXT_COLOR_HEADLINE} mb-4`}>Frequently Asked Questions</h2>

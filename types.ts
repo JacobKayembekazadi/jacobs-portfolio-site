@@ -76,14 +76,7 @@ export interface SocialLink {
   Icon: React.ElementType;
 }
 
-export interface BlogPost {
-  id: string;
-  imageUrl: string;
-  date: string;
-  title: string;
-  summary: string;
-  url: string;
-}
+
 
 // Lead Qualification System Types
 export enum ProjectType {

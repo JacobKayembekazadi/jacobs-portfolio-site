@@ -1,5 +1,5 @@
-import { NavItem, Project, Strength, SkillCategory, ExperienceItem, BrandExplorationItem, FAQ, SocialLink, BlogPost } from './types';
-import { GithubIcon, LinkedinIcon, TwitterIcon, DribbbleIcon, BehanceIcon, BrainCircuitIcon, LayersIcon, BarChartIcon } from './components/icons/SocialMediaIcons';
+import { NavItem, Project, Strength, SkillCategory, ExperienceItem, BrandExplorationItem, FAQ, SocialLink } from './types';
+import { GithubIcon, LinkedinIcon, TwitterIcon, BrainCircuitIcon, LayersIcon, BarChartIcon } from './components/icons/SocialMediaIcons';
 import { BoltIcon, WorkflowTriggerIcon, WorkflowActionIcon, WorkflowCodeIcon, WorkflowConditionalIcon, WorkflowOutputIcon, PlusIconCircle } from './components/icons/InterfaceIcons';
 import { FigmaIcon, FramerIcon, WebflowIcon, ZapierIcon, OpenAIIcon } from './components/icons/TechStackIcons'; // Added more tech icons
 
@@ -27,7 +27,7 @@ export const PERSONAL_INFO = {
   heroSubheadline: "I bridge the gap between innovative AI tools and real-world business solutions, crafting automated systems that scale impact for creators, marketers, and growing teams.",
   narrative: "I don't just use AI tools — I map them to real-world problems. My strength lies in bridging the gap between innovative ideas and robust, automated systems.", // Original narrative
   whyItMatters: "Because the future belongs to those who can translate vision into scalable solutions, leveraging the right tools for transformative impact.", // Original
-  profileImageUrl: "/jacob-profile.png", // Your professional profile image
+  profileImageUrl: "/images/jacob-avatar.png.png", // Your professional profile image
   contraUrl: "contra.com/babarogic" // Example URL for verified badge
 };
 
@@ -37,7 +37,6 @@ export const NAV_ITEMS: NavItem[] = [
   { name: 'Skills', href: '#skills' },
   { name: 'Experience', href: '#experience' },
   { name: 'Brand IDs', href: '#brand-explorations' }, 
-  { name: 'Blog', href: '#blog' },
 ];
 
 export const TECH_STACK_HERO_ITEMS = [
@@ -346,40 +345,13 @@ export const FAQ_DATA: FAQ[] = [
   },
 ];
 
-export const BLOG_POSTS_DATA: BlogPost[] = [
-  {
-    id: 'blog1',
-    imageUrl: 'https://picsum.photos/seed/blog1/400/250', // Placeholder blog image
-    date: 'October 26, 2023',
-    title: 'The Future of AI in Marketing Automation',
-    summary: 'Exploring how AI is revolutionizing marketing automation, from personalized campaigns to predictive analytics.',
-    url: '#',
-  },
-  {
-    id: 'blog2',
-    imageUrl: 'https://picsum.photos/seed/blog2/400/250', // Placeholder blog image
-    date: 'November 15, 2023',
-    title: 'Building Lean MVPs with No-Code & AI Agents',
-    summary: 'A guide to rapidly prototyping and validating ideas using the power of no-code platforms and intelligent AI agents.',
-    url: '#',
-  },
-  {
-    id: 'blog3',
-    imageUrl: 'https://picsum.photos/seed/blog3/400/250', // Placeholder blog image
-    date: 'December 05, 2023',
-    title: 'Ethical Considerations in AI-Powered Content Creation',
-    summary: 'Discussing the importance of responsible AI use in content generation, focusing on authenticity and bias mitigation.',
-    url: '#',
-  },
-];
 
-// Athos footer has LinkedIn, Dribbble, Behance, Twitter.
+
+// Updated footer social links with Jacob's specific profiles
 export const FOOTER_SOCIAL_LINKS: SocialLink[] = [
-  { name: 'LinkedIn', url: '#', Icon: LinkedinIcon },
-  { name: 'Dribbble', url: '#', Icon: DribbbleIcon },
-  { name: 'Behance', url: '#', Icon: BehanceIcon },
-  { name: 'Twitter', url: '#', Icon: TwitterIcon },
-  { name: 'GitHub', url: '#', Icon: GithubIcon }, // Keep GitHub
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/jacob-kazadi-kayembe-2b89a9193/', Icon: LinkedinIcon },
+  { name: 'Twitter', url: 'https://x.com/kayembe_jacob', Icon: TwitterIcon },
+  { name: 'GitHub', url: 'https://github.com/JacobKayembekazadi', Icon: GithubIcon },
 ];
 
 // For Footer navigation links, similar to Athos
@@ -392,7 +364,6 @@ export const FOOTER_NAV_LINKS_COLUMN1: NavItem[] = [
 
 export const FOOTER_NAV_LINKS_COLUMN2: NavItem[] = [
   { name: 'Brand IDs', href: '#brand-explorations' },
-  { name: 'Blog', href: '#blog' },
   { name: 'FAQ', href: '#faq' },
   { name: 'Contact', href: '#contact' },
 ];
