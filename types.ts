@@ -166,6 +166,25 @@ export interface LeadExtractedData {
   };
   projectDescription: string;
   specificNeeds: string[];
+  
+  // Enhanced Intelligence Fields
+  painPoints?: string[];
+  desiredOutcomes?: string[];
+  competitorsMentioned?: string[];
+  currentSolutions?: string[];
+  technicalRequirements?: string[];
+  teamSize?: number;
+  decisionMakers?: string[];
+  urgencyIndicators?: string[];
+  budgetConstraints?: string[];
+  successMetrics?: string[];
+  riskFactors?: string[];
+  opportunitySize?: 'small' | 'medium' | 'large' | 'enterprise';
+  confidenceScore?: number;
+  extractionTimestamp?: Date;
+  lastInteractionSentiment?: 'positive' | 'neutral' | 'negative' | 'excited';
+  engagementLevel?: 'low' | 'medium' | 'high' | 'very_high';
+  readyToBuy?: 'not_ready' | 'researching' | 'evaluating' | 'ready_to_decide';
 }
 
 export interface ResponseTemplate {

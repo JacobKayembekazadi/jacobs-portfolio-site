@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { PERSONAL_INFO, TEXT_COLOR_HEADLINE, TEXT_COLOR_MUTED, TECH_STACK_HERO_ITEMS, TEXT_COLOR_LIGHT, MAIN_BG_COLOR } from '../constants';
 import { VerifiedBadgeIcon } from './icons/InterfaceIcons'; // New Icon for badge
 import LeadQualificationSystem from './LeadQualificationSystem';
-import { LeadQualification } from '../types';
 
 const HeroSection: React.FC = () => {
   const [showQualification, setShowQualification] = useState(false);
 
-  const handleLeadQualified = (lead: LeadQualification) => {
-    console.log('New lead qualified from hero:', lead);
+  const handleAdviceComplete = (data: any) => {
+    console.log('Marketing advice session completed:', data);
   };
   return (
     <section className={`py-20 md:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center flex flex-col items-center justify-center min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-80px)] ${MAIN_BG_COLOR}`}>
@@ -53,7 +52,7 @@ const HeroSection: React.FC = () => {
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
-          <span>Tell My AI About Your Project</span>
+          <span>Get Marketing Strategies Now</span>
         </button>
         <a
           href="#projects"
@@ -80,7 +79,7 @@ const HeroSection: React.FC = () => {
       <LeadQualificationSystem
         isOpen={showQualification}
         onClose={() => setShowQualification(false)}
-        onLeadQualified={handleLeadQualified}
+        onLeadQualified={handleAdviceComplete}
       />
     </section>
   );

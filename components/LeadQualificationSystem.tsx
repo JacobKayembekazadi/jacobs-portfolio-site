@@ -50,6 +50,7 @@ const LeadQualificationSystem: React.FC<LeadQualificationSystemProps> = ({
     let score = 0;
     const { scoringWeights } = DEFAULT_CONFIG;
 
+    // Base scoring (existing logic)
     // Project Type Scoring
     if (data.projectType) {
       switch (data.projectType) {
@@ -150,7 +151,76 @@ const LeadQualificationSystem: React.FC<LeadQualificationSystemProps> = ({
       }
     }
 
-    return Math.round(score);
+    // ADVANCED INTELLIGENCE SCORING (New)
+    // Pain Points & Business Impact (+15 points max)
+    if (data.painPoints && data.painPoints.length > 0) {
+      score += Math.min(15, data.painPoints.length * 5); // 5 points per pain point, max 15
+    }
+
+    // Desired Outcomes & ROI Focus (+10 points max)
+    if (data.desiredOutcomes && data.desiredOutcomes.length > 0) {
+      score += Math.min(10, data.desiredOutcomes.length * 3.33);
+    }
+
+    // Engagement Level Multiplier (0.8x to 1.2x)
+    const engagementMultiplier = calculateEngagementMultiplier(data);
+    score *= engagementMultiplier;
+
+    // Urgency Indicators Boost (+5 points)
+    if (data.urgencyIndicators && data.urgencyIndicators.length > 0) {
+      score += 5;
+    }
+
+    // Decision-Making Authority (+8 points)
+    if (data.decisionMakers && data.decisionMakers.length > 0) {
+      score += 8;
+    }
+
+    // Opportunity Size Multiplier
+    const opportunityMultiplier = getOpportunityMultiplier(data.opportunitySize);
+    score *= opportunityMultiplier;
+
+    // Readiness to Buy Bonus (+10 points max)
+    const readinessBonux = getReadinessBonus(data.readyToBuy);
+    score += readinessBonux;
+
+    // Confidence Score Adjustment (-20% to +10%)
+    if (data.confidenceScore !== undefined) {
+      const confidenceAdjustment = (data.confidenceScore - 0.5) * 0.3; // -0.15 to +0.15
+      score *= (1 + confidenceAdjustment);
+    }
+
+    return Math.round(Math.min(100, Math.max(0, score))); // Clamp between 0-100
+  };
+
+  const calculateEngagementMultiplier = (data: Partial<LeadExtractedData>): number => {
+    switch (data.engagementLevel) {
+      case 'very_high': return 1.2;
+      case 'high': return 1.1;
+      case 'medium': return 1.0;
+      case 'low': return 0.9;
+      default: return 1.0;
+    }
+  };
+
+  const getOpportunityMultiplier = (size?: string): number => {
+    switch (size) {
+      case 'enterprise': return 1.15;
+      case 'large': return 1.1;
+      case 'medium': return 1.0;
+      case 'small': return 0.95;
+      default: return 1.0;
+    }
+  };
+
+  const getReadinessBonus = (readiness?: string): number => {
+    switch (readiness) {
+      case 'ready_to_decide': return 10;
+      case 'evaluating': return 7;
+      case 'researching': return 4;
+      case 'not_ready': return 0;
+      default: return 2;
+    }
   };
 
   const categorizeLeadByScore = (score: number): LeadCategory => {
