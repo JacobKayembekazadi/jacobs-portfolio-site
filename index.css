@@ -18,6 +18,7 @@ body {
   line-height: 1.6;
   color: #FAFAFA;
   background-color: #111111;
+  overflow-x: hidden; /* Prevent horizontal scrolling from Three.js canvas */
 }
 
 /* Custom scrollbar styles */
@@ -49,4 +50,11 @@ body {
 /* Smooth transitions */
 * {
   transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Enhanced backdrop blur for better content visibility over Three.js background */
+.backdrop-enhanced {
+  backdrop-filter: blur(10px) saturate(180%);
+  background: rgba(28, 28, 28, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 } 
