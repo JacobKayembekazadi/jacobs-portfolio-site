@@ -43,10 +43,10 @@ const AINetworkBackground: React.FC = () => {
       const nodeCount = 50;
       const nodes: THREE.Vector3[] = [];
 
-      // Brand colors
-      const primaryColor = new THREE.Color(0x6C63FF);
-      const secondaryColor = new THREE.Color(0xFF6B6B);
-      const accentColor = new THREE.Color(0x60A5FA);
+      // Neon Aurora brand colors
+      const primaryColor = new THREE.Color(0xa855f7);
+      const secondaryColor = new THREE.Color(0x2dd4bf);
+      const accentColor = new THREE.Color(0x14b8a6);
 
       // Create nodes
       for (let i = 0; i < nodeCount; i++) {
@@ -79,7 +79,7 @@ const AINetworkBackground: React.FC = () => {
     const createConnections = (nodes: THREE.Vector3[]) => {
       const connectionGroup = new THREE.Group();
       const material = new THREE.LineBasicMaterial({
-        color: 0x6C63FF,
+        color: 0xa855f7,
         transparent: true,
         opacity: 0.2
       });
@@ -109,8 +109,8 @@ const AINetworkBackground: React.FC = () => {
       const colors = new Float32Array(particleCount * 3);
       const sizes = new Float32Array(particleCount);
 
-      const color1 = new THREE.Color(0x6C63FF);
-      const color2 = new THREE.Color(0xFF6B6B);
+      const color1 = new THREE.Color(0xa855f7);
+      const color2 = new THREE.Color(0x2dd4bf);
 
       for (let i = 0; i < particleCount; i++) {
         positions[i * 3] = (Math.random() - 0.5) * 100;
@@ -183,7 +183,7 @@ const AINetworkBackground: React.FC = () => {
       const gridSize = 20;
       const divisions = 40;
       
-      const gridHelper = new THREE.GridHelper(gridSize, divisions, 0x6C63FF, 0x6C63FF);
+      const gridHelper = new THREE.GridHelper(gridSize, divisions, 0xa855f7, 0x2dd4bf);
       gridHelper.material.opacity = 0.1;
       gridHelper.material.transparent = true;
       gridHelper.rotation.x = Math.PI / 2;
@@ -308,7 +308,7 @@ const AINetworkBackground: React.FC = () => {
       ref={mountRef} 
       className="fixed inset-0 z-0 pointer-events-none"
       style={{ 
-        background: 'linear-gradient(135deg, #0A0A0A 0%, #111111 50%, #0A0A0A 100%)'
+        background: 'linear-gradient(135deg, #02010a 0%, #0a0a0a 50%, #02010a 100%)'
       }}
     />
   );

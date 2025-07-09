@@ -24,13 +24,13 @@ export interface Project {
   id:string;
   mainTitle: string; // Renamed from 'title' for clarity
   features: [ProjectFeature, ProjectFeature, ProjectFeature]; // Array of 3 features
-  workflow: {
+  workflow?: {
     line1: WorkflowNode[];
     conditionalNode?: WorkflowNode; // The node that branches
     line2TrueBranch?: WorkflowNode[]; // Nodes after true branch
     // line2FalseBranch could be added if needed for a false path
   };
-  imageUrl?: string; // Kept for potential fallback or other uses, but not primary in new card
+  imageUrl: string; // Kept for potential fallback or other uses, but not primary in new card
   tags?: string[]; // Kept for potential metadata, not primary display
   url?: string; // Link for the entire card or a specific call to action if any
 }

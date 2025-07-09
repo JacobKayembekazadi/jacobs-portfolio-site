@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PROJECTS_DATA, TEXT_COLOR_HEADLINE, TEXT_COLOR_MUTED, ACCENT_COLOR_PRIMARY, CARD_BG_COLOR } from '../constants';
 import { Project, ProjectFeature, WorkflowNode } from '../types';
-// ArrowRightIcon removed as "Explore All Projects" button was removed
 
 const FeatureColumn: React.FC<{ feature: ProjectFeature }> = ({ feature }) => (
   <div className="flex-1 p-2 md:p-3">
@@ -51,15 +50,15 @@ const WorkflowNodeDisplay: React.FC<{
     <div className={`flex items-center ${node.isPlaceholder ? 'self-stretch' : ''}`}>
       <div className={`
         backdrop-blur-sm rounded-xl p-3 text-center w-32 h-28 flex flex-col justify-center items-center 
-        transition-all duration-300 hover:scale-105 hover:shadow-xl relative overflow-hidden
+        transition-all duration-500 hover:scale-105 hover:shadow-xl relative overflow-hidden
         ${getNodeStyle()}
         ${node.isPlaceholder ? 'cursor-pointer flex-grow' : ''}
       `}>
         {/* Animated background dots */}
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-2 left-2 w-1 h-1 bg-white rounded-full animate-pulse"></div>
-          <div className="absolute top-4 right-3 w-1 h-1 bg-white rounded-full animate-pulse delay-300"></div>
-          <div className="absolute bottom-3 left-3 w-1 h-1 bg-white rounded-full animate-pulse delay-700"></div>
+          <div className="absolute top-4 right-3 w-1 h-1 bg-white rounded-full animate-pulse delay-1000"></div>
+          <div className="absolute bottom-3 left-3 w-1 h-1 bg-white rounded-full animate-pulse delay-1500"></div>
         </div>
         
         {node.isPlaceholder ? (
@@ -91,7 +90,7 @@ const WorkflowNodeDisplay: React.FC<{
 
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const cardContent = (
-    <div className={`${CARD_BG_COLOR} rounded-2xl overflow-hidden shadow-xl border border-gray-700 hover:border-${ACCENT_COLOR_PRIMARY} transition-all duration-300 group flex flex-col relative hover:shadow-${ACCENT_COLOR_PRIMARY}/20`}>
+    <div className={`${CARD_BG_COLOR} rounded-2xl overflow-hidden shadow-xl border border-gray-700 hover:border-${ACCENT_COLOR_PRIMARY} transition-all duration-700 group flex flex-col relative hover:shadow-${ACCENT_COLOR_PRIMARY}/20 w-full max-w-2xl mx-auto`}>
       <div className="relative z-10 flex flex-col">
         {/* Features Header - More Compact */}
         <div className="bg-gray-800 bg-opacity-50 flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-gray-700">
@@ -100,42 +99,47 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
           ))}
         </div>
 
-        {/* Workflow Visualization Area - Full Diagram Display */}
-        <div className="flex-grow p-4 md:p-6 relative">
-          {/* Background with modern gradient and pattern */}
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800"></div>
-          <div className="absolute inset-0 opacity-10" 
-               style={{ 
-                 backgroundImage: `
-                   radial-gradient(circle at 25% 25%, #3b82f6 2px, transparent 2px),
-                   radial-gradient(circle at 75% 75%, #06b6d4 2px, transparent 2px)
-                 `, 
-                 backgroundSize: "50px 50px, 30px 30px" 
-               }}>
+        {/* Conditional Rendering: Image or Workflow */}
+        {project.imageUrl ? (
+          <div className="relative aspect-video">
+            <img src={project.imageUrl} alt={project.mainTitle} className="object-cover w-full h-full"/>
           </div>
-          
-          <div className="relative z-10 space-y-4 flex flex-col justify-center">
-            {/* Main workflow line */}
-            <div className="flex items-center justify-start pb-2">
-              {project.workflow.line1.map((node, index) => (
-                <WorkflowNodeDisplay 
-                  key={node.id} 
-                  node={node} 
-                  nodeIndex={index}
-                  isLastInRow={index === project.workflow.line1.length - 1} 
-                />
-              ))}
+        ) : project.workflow ? (
+          <div className="flex-grow p-4 md:p-6 relative">
+            {/* Background with modern gradient and pattern */}
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800"></div>
+            <div className="absolute inset-0 opacity-10" 
+                 style={{ 
+                   backgroundImage: `
+                     radial-gradient(circle at 25% 25%, #3b82f6 2px, transparent 2px),
+                     radial-gradient(circle at 75% 75%, #06b6d4 2px, transparent 2px)
+                   `, 
+                   backgroundSize: "50px 50px, 30px 30px" 
+                 }}>
             </div>
+            
+            <div className="relative z-10 space-y-4 flex flex-col justify-center">
+              {/* Main workflow line */}
+              <div className="flex items-center justify-start pb-2">
+                {project.workflow?.line1.map((node, index) => (
+                  <WorkflowNodeDisplay 
+                    key={node.id} 
+                    node={node} 
+                    nodeIndex={index}
+                    isLastInRow={index === (project.workflow?.line1.length ?? 0) - 1} 
+                  />
+                ))}
+              </div>
 
-            {/* Conditional node with modern connecting lines */}
-            {project.workflow.conditionalNode && (
-              <div className="flex justify-center">
-                <div className="flex flex-col items-center">
-                  {/* Vertical connector with glow effect */}
-                  <div className="relative">
-                    <div className="w-px h-6 bg-gradient-to-b from-blue-400/50 to-purple-400/50"></div>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-purple-400/50 rounded-full animate-pulse"></div>
-                  </div>
+              {/* Conditional node with modern connecting lines */}
+              {project.workflow?.conditionalNode && (
+                <div className="flex justify-center">
+                  <div className="flex flex-col items-center">
+                    {/* Vertical connector with glow effect */}
+                    <div className="relative">
+                      <div className="w-px h-6 bg-gradient-to-b from-blue-400/50 to-purple-400/50"></div>
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-purple-400/50 rounded-full animate-pulse"></div>
+                    </div>
                   <div className="w-3 h-3 bg-purple-400 rounded-full mb-2 shadow-lg shadow-purple-400/50"></div>
                   <WorkflowNodeDisplay 
                     node={project.workflow.conditionalNode} 
@@ -147,47 +151,48 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             )}
             
             {/* True branch with enhanced styling */}
-            {project.workflow.line2TrueBranch && project.workflow.conditionalNode && (
+            {project.workflow?.line2TrueBranch && project.workflow?.conditionalNode && (
                <div className="flex justify-center">
                  <div className="flex items-center">
                    {/* Enhanced branch connector */}
-                   <div className="flex items-center mr-4">
-                     <div className="w-3 h-3 bg-green-400 rounded-full shadow-lg shadow-green-400/50"></div>
-                     <div className="relative mx-2">
-                       <div className="h-px w-12 bg-gradient-to-r from-green-400/50 to-emerald-400/50"></div>
-                       <span className="absolute -top-4 left-1/2 transform -translate-x-1/2 text-[10px] text-green-300 font-medium bg-green-500/20 px-2 py-1 rounded">
-                         ✓ true
-                       </span>
+                     <div className="flex items-center mr-4">
+                       <div className="w-3 h-3 bg-green-400 rounded-full shadow-lg shadow-green-400/50"></div>
+                       <div className="relative mx-2">
+                         <div className="h-px w-12 bg-gradient-to-r from-green-400/50 to-emerald-400/50"></div>
+                         <span className="absolute -top-4 left-1/2 transform -translate-x-1/2 text-[10px] text-green-300 font-medium bg-green-500/20 px-2 py-1 rounded">
+                           ✓ true
+                         </span>
+                       </div>
                      </div>
-                   </div>
-                   
+                     
                    <div className="flex items-center space-x-4">
                      {project.workflow.line2TrueBranch.map((node, index) => (
                        <WorkflowNodeDisplay 
                          key={node.id} 
                          node={node} 
                          nodeIndex={index + 10} // Offset for different colors
-                         isLastInRow={index === (project.workflow.line2TrueBranch?.length ?? 0) - 1} 
+                         isLastInRow={index === (project.workflow?.line2TrueBranch?.length ?? 0) - 1} 
                        />
                      ))}
                    </div>
                  </div>
                </div>
             )}
+            </div>
           </div>
-        </div>
+        ) : null}
 
         {/* Enhanced project title section - More Compact */}
         <div className={`p-4 md:p-5 ${CARD_BG_COLOR} border-t border-gray-700/80 relative`}>
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent"></div>
-          <h3 className={`text-lg md:text-xl font-bold ${TEXT_COLOR_HEADLINE} group-hover:text-${ACCENT_COLOR_PRIMARY} transition-colors duration-200 mb-2`}>
+          <h3 className={`text-lg md:text-xl font-bold ${TEXT_COLOR_HEADLINE} group-hover:text-${ACCENT_COLOR_PRIMARY} transition-colors duration-400 mb-2`}>
             {project.mainTitle}
           </h3>
           {/* Add workflow completion indicator */}
           <div className="flex items-center space-x-2 mt-2">
             <div className="flex space-x-1">
               {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="w-2 h-2 bg-blue-400/30 rounded-full group-hover:bg-blue-400/60 transition-colors duration-300"></div>
+                <div key={i} className="w-2 h-2 bg-blue-400/30 rounded-full group-hover:bg-blue-400/60 transition-colors duration-500"></div>
               ))}
             </div>
             <span className="text-xs text-gray-400">Automated Workflow</span>
@@ -198,31 +203,147 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   );
 
   return project.url ? (
-    <a href={project.url} target="_blank" rel="noopener noreferrer" className="block group">
+    <a href={project.url} target="_blank" rel="noopener noreferrer" className="block group w-full">
       {cardContent}
     </a>
   ) : (
-    <div className="group">{cardContent}</div>
+    <div className="group w-full">{cardContent}</div>
   );
 };
 
+// Navigation Arrow Components
+const ArrowButton: React.FC<{ direction: 'left' | 'right'; onClick: () => void; disabled?: boolean }> = ({ 
+  direction, 
+  onClick, 
+  disabled = false 
+}) => (
+  <button
+    onClick={onClick}
+    disabled={disabled}
+    aria-label={`Go to ${direction === 'left' ? 'previous' : 'next'} project`}
+    className={`
+      p-3 rounded-full backdrop-blur-sm border transition-all duration-300 z-10
+      ${disabled 
+        ? 'bg-gray-800/50 border-gray-600 text-gray-500 cursor-not-allowed' 
+        : 'bg-gray-900/80 border-gray-600 text-white hover:border-purple-400 hover:bg-gray-800/90 hover:shadow-lg hover:shadow-purple-400/20'
+      }
+    `}
+  >
+    <svg 
+      className="w-6 h-6" 
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24"
+    >
+      <path 
+        strokeLinecap="round" 
+        strokeLinejoin="round" 
+        strokeWidth={2} 
+        d={direction === 'left' ? 'M15 19l-7-7 7-7' : 'M9 5l7 7-7 7'} 
+      />
+    </svg>
+  </button>
+);
+
 const ProjectsSection: React.FC = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const totalSlides = PROJECTS_DATA.length;
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
-    <section id="projects" className="py-20 md:py-28 ${MAIN_BG_COLOR}"> {/* Increased spacing for better section separation */}
+    <section id="projects" className="py-20 md:py-28 bg-[#02010a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 md:mb-16">
+        {/* Header */}
+        <div className="mb-12 md:mb-16 text-center">
           <h2 className={`text-3xl md:text-4xl font-bold ${TEXT_COLOR_HEADLINE} mb-4`}>Featured Work</h2>
-          <p className={`${TEXT_COLOR_MUTED} text-lg max-w-2xl`}>
+          <p className={`${TEXT_COLOR_MUTED} text-lg max-w-2xl mx-auto`}>
             Selected case studies showcasing automated workflows and strategic AI applications that drive business results.
           </p>
         </div>
-        {/* 2-Column Grid Layout for Better Workflow Display */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-start">
-          {PROJECTS_DATA.map((project: Project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
 
+        {/* Slider Container */}
+        <div className="relative">
+          {/* Navigation Buttons */}
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 z-20">
+            <ArrowButton 
+              direction="left" 
+              onClick={prevSlide} 
+              disabled={currentSlide === 0}
+            />
+          </div>
+          
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20">
+            <ArrowButton 
+              direction="right" 
+              onClick={nextSlide} 
+              disabled={currentSlide === totalSlides - 1}
+            />
+          </div>
+
+          {/* Slides Container */}
+          <div className="overflow-hidden rounded-2xl">
+            <div 
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {PROJECTS_DATA.map((project, index) => (
+                <div 
+                  key={project.id} 
+                  className="w-full flex-shrink-0 px-8"
+                >
+                  <ProjectCard project={project} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Slide Indicators */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {PROJECTS_DATA.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                className={`
+                  w-3 h-3 rounded-full transition-all duration-300
+                  ${index === currentSlide 
+                    ? 'bg-purple-400 shadow-lg shadow-purple-400/50' 
+                    : 'bg-gray-600 hover:bg-gray-500'
+                  }
+                `}
+              />
+            ))}
+          </div>
+
+          {/* Slide Counter */}
+          <div className="text-center mt-4">
+            <span className="text-gray-400 text-sm">
+              {currentSlide + 1} of {totalSlides}
+            </span>
+          </div>
+        </div>
       </div>
     </section>
   );

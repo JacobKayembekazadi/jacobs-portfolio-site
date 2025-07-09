@@ -3,15 +3,27 @@ import { GithubIcon, LinkedinIcon, TwitterIcon, BrainCircuitIcon, LayersIcon, Ba
 import { BoltIcon, WorkflowTriggerIcon, WorkflowActionIcon, WorkflowCodeIcon, WorkflowConditionalIcon, WorkflowOutputIcon, PlusIconCircle } from './components/icons/InterfaceIcons';
 import { FigmaIcon, FramerIcon, WebflowIcon, ZapierIcon, OpenAIIcon } from './components/icons/TechStackIcons'; // Added more tech icons
 
-// Theme Colors (consistent with Athos theme)
-export const MAIN_BG_COLOR = 'bg-dark'; // #111111
-export const CARD_BG_COLOR = 'bg-card-bg'; // #1C1C1C (similar to gray-900)
-export const DARKER_BG_COLOR = 'bg-darker'; // #0A0A0A
-export const TEXT_COLOR_LIGHT = 'text-light'; // #FAFAFA
-export const TEXT_COLOR_MUTED = 'text-gray-400'; // Standard muted color
-export const TEXT_COLOR_HEADLINE = 'text-white'; // Or text-light
-export const ACCENT_COLOR_PRIMARY = 'primary'; // '#6C63FF' - use as text-primary, bg-primary
-export const ACCENT_COLOR_SECONDARY = 'accent-secondary'; // '#FF6B6B'
+// Bento Grid Typographic Brutalism Colors
+export const BENTO_COLORS = {
+  BACKGROUND_MAIN: '#0D0D0D',
+  PRIMARY_ACCENT_ORANGE: '#FF4D00',
+  TEXT_PRIMARY_LIGHT: '#F5F5F5',
+  TEXT_SECONDARY_GRAY: '#A0A0A0',
+  CARD_BACKGROUND: '#1A1A1A',
+};
+
+// Neon Aurora Theme Colors
+export const MAIN_BG_COLOR = 'bg-[#02010a]'; // Deep dark background
+export const CARD_BG_COLOR = 'bg-[#111827]'; // Component background
+export const DARKER_BG_COLOR = 'bg-[#0a0a0a]'; // Darker elements
+export const TEXT_COLOR_LIGHT = 'text-[#F1F2F4]'; // Primary text
+export const TEXT_COLOR_MUTED = 'text-[#A3A3B5]'; // Secondary text
+export const TEXT_COLOR_HEADLINE = 'text-[#F1F2F4]'; // Headlines
+export const ACCENT_COLOR_PRIMARY = 'text-[#a855f7]'; // Purple accent
+export const ACCENT_COLOR_SECONDARY = 'text-[#2dd4bf]'; // Teal accent
+export const BORDER_COLOR = 'border-[#374151]'; // Component borders
+export const GLOW_PRIMARY = 'shadow-[0_0_15px_2px_rgba(168,85,247,0.4)]'; // Purple glow
+export const GLOW_SECONDARY = 'shadow-[0_0_15px_2px_rgba(45,212,191,0.4)]'; // Teal glow
 
 export const PERSONAL_INFO = {
   name: "Jacob Kazadi Kayembe",
@@ -27,12 +39,13 @@ export const PERSONAL_INFO = {
   heroSubheadline: "I bridge the gap between innovative AI tools and real-world business solutions, crafting automated systems that scale impact for creators, marketers, and growing teams.",
   narrative: "I don't just use AI tools — I map them to real-world problems. My strength lies in bridging the gap between innovative ideas and robust, automated systems.", // Original narrative
   whyItMatters: "Because the future belongs to those who can translate vision into scalable solutions, leveraging the right tools for transformative impact.", // Original
-  profileImageUrl: "/images/jacob-avatar.png.png", // Your professional profile image
+  profileImageUrl: "/images/jacob-avatar.png", // Your professional profile image
   contraUrl: "contra.com/babarogic" // Example URL for verified badge
 };
 
 export const NAV_ITEMS: NavItem[] = [
   { name: 'Work', href: '#projects' },
+  { name: 'Portfolio', href: '#portfolio-bento-grid' },
   { name: 'About', href: '#strengths' }, // Map About to Core Strengths
   { name: 'Skills', href: '#skills' },
   { name: 'Experience', href: '#experience' },
@@ -75,6 +88,7 @@ export const PROJECTS_DATA: Project[] = [
         { id: 'p1n7', icon: PlusIconCircle, label: '', isPlaceholder: true},
       ],
     },
+    imageUrl: '',
     url: '#',
     tags: ['AI Integration', 'Content Automation', 'Brand Strategy'],
   },
@@ -99,6 +113,7 @@ export const PROJECTS_DATA: Project[] = [
         { id: 'p2n7', icon: PlusIconCircle, label: '', isPlaceholder: true},
       ],
     },
+    imageUrl: '',
     url: '#',
     tags: ['MVP Development', 'No-Code', 'AI Agents'],
   },
@@ -123,6 +138,7 @@ export const PROJECTS_DATA: Project[] = [
         { id: 'p3n7', icon: PlusIconCircle, label: '', isPlaceholder: true},
       ],
     },
+    imageUrl: '',
     url: '#',
     tags: ['Process Automation', 'AI Classification', 'Customer Service'],
   },
@@ -147,6 +163,7 @@ export const PROJECTS_DATA: Project[] = [
         { id: 'p4n7', icon: PlusIconCircle, label: '', isPlaceholder: true},
       ],
     },
+    imageUrl: '',
     url: '#',
     tags: ['Prompt Engineering', 'Strategic Planning', 'AI Documentation'],
   },
@@ -171,8 +188,81 @@ export const PROJECTS_DATA: Project[] = [
         { id: 'p5n7', icon: PlusIconCircle, label: '', isPlaceholder: true},
       ],
     },
+    imageUrl: '',
     url: '#',
     tags: ['UX Review', 'AODA Compliance', 'Lead Generation', 'Heuristic Evaluation'],
+  },
+  {
+    id: 'project6',
+    mainTitle: 'Product Design Concept 1',
+    features: [
+      { icon: BoltIcon, title: 'Feature 1', description: 'Description for feature 1.' },
+      { icon: BoltIcon, title: 'Feature 2', description: 'Description for feature 2.' },
+      { icon: BoltIcon, title: 'Feature 3', description: 'Description for feature 3.' },
+    ],
+    imageUrl: '/images/product-design-1.png',
+    url: '#',
+    tags: ['Product Design'],
+  },
+  {
+    id: 'project7',
+    mainTitle: 'Product Design Concept 2',
+    features: [
+      { icon: BoltIcon, title: 'Feature 1', description: 'Description for feature 1.' },
+      { icon: BoltIcon, title: 'Feature 2', description: 'Description for feature 2.' },
+      { icon: BoltIcon, title: 'Feature 3', description: 'Description for feature 3.' },
+    ],
+    imageUrl: '/images/product-design-2.png',
+    url: '#',
+    tags: ['Product Design'],
+  },
+  {
+    id: 'project8',
+    mainTitle: 'Product Design Concept 3',
+    features: [
+      { icon: BoltIcon, title: 'Feature 1', description: 'Description for feature 1.' },
+      { icon: BoltIcon, title: 'Feature 2', description: 'Description for feature 2.' },
+      { icon: BoltIcon, title: 'Feature 3', description: 'Description for feature 3.' },
+    ],
+    imageUrl: '/images/product-design-3.png',
+    url: '#',
+    tags: ['Product Design'],
+  },
+  {
+    id: 'project9',
+    mainTitle: 'Product Design Concept 4',
+    features: [
+      { icon: BoltIcon, title: 'Feature 1', description: 'Description for feature 1.' },
+      { icon: BoltIcon, title: 'Feature 2', description: 'Description for feature 2.' },
+      { icon: BoltIcon, title: 'Feature 3', description: 'Description for feature 3.' },
+    ],
+    imageUrl: '/images/product-design-4.png',
+    url: '#',
+    tags: ['Product Design'],
+  },
+  {
+    id: 'project10',
+    mainTitle: 'Product Design Concept 5',
+    features: [
+      { icon: BoltIcon, title: 'Feature 1', description: 'Description for feature 1.' },
+      { icon: BoltIcon, title: 'Feature 2', description: 'Description for feature 2.' },
+      { icon: BoltIcon, title: 'Feature 3', description: 'Description for feature 3.' },
+    ],
+    imageUrl: '/images/product-design-5.png',
+    url: '#',
+    tags: ['Product Design'],
+  },
+  {
+    id: 'project11',
+    mainTitle: 'Product Design Concept 6',
+    features: [
+      { icon: BoltIcon, title: 'Feature 1', description: 'Description for feature 1.' },
+      { icon: BoltIcon, title: 'Feature 2', description: 'Description for feature 2.' },
+      { icon: BoltIcon, title: 'Feature 3', description: 'Description for feature 3.' },
+    ],
+    imageUrl: '/images/product-design-6.png',
+    url: '#',
+    tags: ['Product Design'],
   },
 ];
 
@@ -251,42 +341,42 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
 export const BRAND_EXPLORATIONS_DATA: BrandExplorationItem[] = [
   {
     id: 'brand1',
-    imageUrl: '/images/brand/aethel-headphones.jpg.jpg',
+    imageUrl: '/images/brand/aethel-headphones.jpg',
     title: 'Aethel Audio Lifestyle',
     description: 'AI-assisted product photography for premium headphones.',
     altText: 'Premium headphones on a wooden table with coffee and plant',
   },
   {
     id: 'brand2',
-    imageUrl: '/images/brand/earth-day-island.jpg.jpg',
+    imageUrl: '/images/brand/earth-day-island.jpg',
     title: 'Happy Earth Day Campaign',
     description: 'AI-generated imagery for environmental awareness and conservation.',
     altText: 'Heart-shaped island with lush greenery surrounded by ocean and wildlife',
   },
   {
     id: 'brand3',
-    imageUrl: '/images/brand/mangrove-website.jpg.jpg',
+    imageUrl: '/images/brand/mangrove-website.jpg',
     title: 'Nature Breathes Website',
     description: 'Environmental website design featuring mangrove conservation.',
     altText: 'Website design showing mangrove trees on an island',
   },
   {
     id: 'brand4',
-    imageUrl: '/images/brand/mangrove-illustration.jpg.jpg',
+    imageUrl: '/images/brand/mangrove-illustration.jpg',
     title: 'Eco-Design Illustration',
     description: 'Artistic representation of mangrove ecosystems for environmental campaigns.',
     altText: 'Illustrated mangrove trees on a small island surrounded by water',
   },
   {
     id: 'brand5',
-    imageUrl: '/images/brand/mobile-island-ar.jpg.jpg',
+    imageUrl: '/images/brand/mobile-island-ar.jpg',
     title: 'Plant Hope AR Experience',
     description: 'Augmented reality concept for environmental awareness on mobile.',
     altText: 'Mobile phone displaying an AR island with mangroves emerging from screen',
   },
   {
     id: 'brand6',
-    imageUrl: '/images/brand/salt-conversation.jpg.jpg',
+    imageUrl: '/images/brand/salt-conversation.jpg',
     title: 'Conversational UI Concepts',
     description: 'Exploring AI in user interface design for interactive experiences.',
     altText: 'Creative composition with salt shakers and miniature figures with chat bubble',

@@ -1,8 +1,10 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import ProjectsSection from './components/ProjectsSection';
 import CoreStrengthsSection from './components/CoreStrengthsSection';
+import PortfolioBentoGrid from './components/PortfolioBentoGrid';
 import SkillsSection from './components/SkillsSection';
 import ExperienceSection from './components/ExperienceSection';
 import BrandExplorationSection from './components/BrandExplorationSection';
@@ -12,25 +14,39 @@ import Footer from './components/Footer';
 import AINetworkBackground from './components/AINetworkBackground';
 import { MAIN_BG_COLOR, TEXT_COLOR_LIGHT } from './constants';
 
+const MainContent = () => (
+  <>
+    <Header />
+    <main className="pt-12 md:pt-16 relative z-20"> {/* Reduced padding top for better spacing */}
+      <HeroSection />
+      <CoreStrengthsSection />
+      <PortfolioBentoGrid />
+      <SkillsSection />
+      <ProjectsSection />
+      <ExperienceSection />
+      <BrandExplorationSection />
+      <FAQSection />
+      <CTASection />
+    </main>
+    <div className="relative z-20">
+      <Footer />
+    </div>
+  </>
+);
+
 const App: React.FC = () => {
   return (
-    <div className={`min-h-screen font-sans ${MAIN_BG_COLOR} ${TEXT_COLOR_LIGHT} relative`}>
-      <AINetworkBackground />
-      <Header />
-      <main className="pt-12 md:pt-16 relative z-20"> {/* Reduced padding top for better spacing */}
-        <HeroSection />
-        <ProjectsSection />
-        <CoreStrengthsSection />
-        <SkillsSection />
-        <ExperienceSection />
-        <BrandExplorationSection />
-        <FAQSection />
-        <CTASection />
-      </main>
-      <div className="relative z-20">
-        <Footer />
+    <BrowserRouter>
+      <div className={`min-h-screen font-sans ${MAIN_BG_COLOR} ${TEXT_COLOR_LIGHT} relative`}>
+        {/* Aurora Background Layers */}
+        <div className="aurora-bg"></div>
+        <div className="grid-pattern"></div>
+        {/* <AINetworkBackground /> */}
+        <Routes>
+          <Route path="/" element={<MainContent />} />
+        </Routes>
       </div>
-    </div>
+    </BrowserRouter>
   );
 };
 
