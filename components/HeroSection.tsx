@@ -15,7 +15,7 @@ const HeroSection: React.FC = () => {
       {/* Profile Image - Updated with new image */}
       <div className="relative mb-6">
         <img
-          src="/images/jacob-avatar.png.png"
+          src="/images/jacob-3d-avater.png"
           alt={PERSONAL_INFO.name}
           className="w-32 h-32 md:w-36 md:h-36 rounded-full object-cover shadow-2xl border-4 border-gray-700"
         />

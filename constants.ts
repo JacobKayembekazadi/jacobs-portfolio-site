@@ -39,7 +39,7 @@ export const PERSONAL_INFO = {
   heroSubheadline: "I bridge the gap between innovative AI tools and real-world business solutions, crafting automated systems that scale impact for creators, marketers, and growing teams.",
   narrative: "I don't just use AI tools — I map them to real-world problems. My strength lies in bridging the gap between innovative ideas and robust, automated systems.", // Original narrative
   whyItMatters: "Because the future belongs to those who can translate vision into scalable solutions, leveraging the right tools for transformative impact.", // Original
-  profileImageUrl: "/images/jacob-avatar.png", // Your professional profile image
+  profileImageUrl: "/images/jacob-3d-avater.png", // Your professional profile image
   contraUrl: "contra.com/babarogic" // Example URL for verified badge
 };
 

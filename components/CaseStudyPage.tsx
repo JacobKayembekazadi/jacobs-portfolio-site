@@ -1,9 +1,20 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 
-const caseStudies = [
+interface CaseStudy {
+  id: string;
+  imageUrl?: string;
+  videoUrl?: string;
+  title: string;
+  description: string;
+  services: string;
+  website: string;
+}
+
+const caseStudies: CaseStudy[] = [
   {
     id: 'brand1',
+    videoUrl: '/videos/project-video-1.mp4',
     imageUrl: '/images/brand/aethel-headphones.jpg',
     title: 'Premium Audio Design',
     description: 'Created a sophisticated brand identity for a premium headphone company, focusing on minimalist aesthetics and superior audio quality messaging.',
@@ -12,6 +23,7 @@ const caseStudies = [
   },
   {
     id: 'brand2',
+    videoUrl: '/videos/project-video-2.mp4',
     imageUrl: '/images/brand/billboard-tide.jpg.png',
     title: 'Environmental Conservation Campaign',
     description: 'Developed a powerful visual campaign highlighting ocean conservation, featuring dramatic wave imagery to communicate urgency and beauty of marine ecosystems.',
@@ -20,6 +32,7 @@ const caseStudies = [
   },
   {
     id: 'brand3',
+    videoUrl: '/videos/project-video-3.mp4',
     imageUrl: '/images/brand/mangrove-illustration.jpg',
     title: 'Nature Illustration Series',
     description: 'Created detailed illustrations of mangrove ecosystems to support environmental education and conservation awareness initiatives.',
@@ -28,6 +41,7 @@ const caseStudies = [
   },
   {
     id: 'brand4',
+    videoUrl: '/videos/project-video-4.mp4',
     imageUrl: '/images/brand/mobile-island-ar.jpg',
     title: 'AR Mobile Experience',
     description: 'Designed an innovative augmented reality mobile application that brings environmental education to life through interactive island ecosystems.',
@@ -36,6 +50,7 @@ const caseStudies = [
   },
   {
     id: 'brand5',
+    videoUrl: '/videos/project-video-5.mp4',
     imageUrl: '/images/brand/mangrove-website.jpg',
     title: 'Sustainable Web Design',
     description: 'Built a comprehensive website for mangrove conservation, combining stunning visuals with educational content and donation functionality.',
@@ -44,6 +59,7 @@ const caseStudies = [
   },
   {
     id: 'brand6',
+    videoUrl: '/videos/project-video-6.mp4',
     imageUrl: '/images/brand/earth-day-island.jpg',
     title: 'Earth Day Campaign',
     description: 'Designed a compelling Earth Day campaign featuring island visualizations to promote environmental awareness and action.',
@@ -103,13 +119,24 @@ const CaseStudyPage: React.FC = () => {
       <div className="w-full px-4 py-4 bg-[#18181b]">
         <Link to="/" className="text-gray-300 underline text-base">Back to main page</Link>
       </div>
-      {/* Hero Image */}
-      <div className="flex-1 flex items-stretch justify-center bg-black">
-        <img
-          src={study.imageUrl}
-          alt={study.title}
-          className="w-full h-full object-cover object-center"
-        />
+      {/* Hero Media */}
+      <div className="flex-1 relative bg-black flex items-center justify-center">
+        {study.videoUrl ? (
+          <video
+            src={study.videoUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-contain object-center"
+          />
+        ) : (
+          <img
+            src={study.imageUrl}
+            alt={study.title}
+            className="absolute inset-0 w-full h-full object-contain object-center"
+          />
+        )}
       </div>
       {/* Bottom Bar */}
       <div className="w-full bg-[#18181b] text-white flex flex-col md:flex-row items-start md:items-end justify-between px-4 md:px-8 py-6 gap-6" style={{ fontFamily: 'Inter, sans-serif' }}>
