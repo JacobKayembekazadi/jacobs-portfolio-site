@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useSearchParams } from 'react-router-dom';
 
 interface CaseStudy {
   id: string;
@@ -16,92 +16,95 @@ const caseStudies: CaseStudy[] = [
     id: 'brand1',
     videoUrl: '/videos/project-video-1.mp4',
     imageUrl: '/images/brand/aethel-headphones.jpg',
-    title: 'Premium Audio Design',
-    description: 'Created a sophisticated brand identity for a premium headphone company, focusing on minimalist aesthetics and superior audio quality messaging.',
-    services: 'Brand Design',
+    title: 'Aesthetic Synthesis',
+    description: 'Where form meets function in perfect harmony. This exploration pushes the boundaries of visual language, creating experiences that resonate on both conscious and subconscious levels.',
+    services: 'Creative Direction',
     website: ''
   },
   {
     id: 'brand2',
     videoUrl: '/videos/project-video-2.mp4',
     imageUrl: '/images/brand/billboard-tide.jpg.png',
-    title: 'Environmental Conservation Campaign',
-    description: 'Developed a powerful visual campaign highlighting ocean conservation, featuring dramatic wave imagery to communicate urgency and beauty of marine ecosystems.',
-    services: 'Campaign Design',
+    title: 'Elemental Narratives',
+    description: 'Capturing the raw poetry of natural forces. A study in movement and stillness, where every frame tells a story of transformation and the delicate balance between power and grace.',
+    services: 'Visual Storytelling',
     website: ''
   },
   {
     id: 'brand3',
     videoUrl: '/videos/project-video-3.mp4',
     imageUrl: '/images/brand/mangrove-illustration.jpg',
-    title: 'Nature Illustration Series',
-    description: 'Created detailed illustrations of mangrove ecosystems to support environmental education and conservation awareness initiatives.',
-    services: 'Illustration',
+    title: 'Organic Complexity',
+    description: 'Exploring the intricate patterns found at the intersection of nature and design. Each detail serves as both aesthetic element and functional component in a larger ecosystem of meaning.',
+    services: 'Conceptual Design',
     website: ''
   },
   {
     id: 'brand4',
     videoUrl: '/videos/project-video-4.mp4',
     imageUrl: '/images/brand/mobile-island-ar.jpg',
-    title: 'AR Mobile Experience',
-    description: 'Designed an innovative augmented reality mobile application that brings environmental education to life through interactive island ecosystems.',
-    services: 'AR/UX Design',
+    title: 'Digital Horizons',
+    description: 'Bridging physical and virtual realms through immersive experiences. This work challenges perceptions of reality, creating spaces where imagination and technology converge.',
+    services: 'Experience Design',
     website: ''
   },
   {
     id: 'brand5',
     videoUrl: '/videos/project-video-5.mp4',
     imageUrl: '/images/brand/mangrove-website.jpg',
-    title: 'Sustainable Web Design',
-    description: 'Built a comprehensive website for mangrove conservation, combining stunning visuals with educational content and donation functionality.',
-    services: 'Web Development',
+    title: 'Sustainable Futures',
+    description: 'Design as a catalyst for positive change. Merging aesthetic excellence with purposeful innovation to create solutions that inspire action and foster meaningful connections.',
+    services: 'Strategic Design',
     website: ''
   },
   {
     id: 'brand6',
     videoUrl: '/videos/project-video-6.mp4',
     imageUrl: '/images/brand/earth-day-island.jpg',
-    title: 'Earth Day Campaign',
-    description: 'Designed a compelling Earth Day campaign featuring island visualizations to promote environmental awareness and action.',
-    services: 'Campaign Design',
+    title: 'Temporal Landscapes',
+    description: 'Moments frozen in time that speak to larger truths. This collection explores the ephemeral nature of existence through carefully crafted visual metaphors.',
+    services: 'Art Direction',
     website: ''
   },
   {
     id: 'brand7',
     imageUrl: '/images/brand/salt-conversation.jpg',
-    title: 'Social Media Strategy',
-    description: 'Developed a comprehensive social media strategy platform with advanced conversation tracking and engagement analytics.',
-    services: 'Social Strategy',
+    title: 'Human Connections',
+    description: 'Designing for the spaces between us. An exploration of how digital interfaces can enhance rather than replace genuine human interaction and community building.',
+    services: 'Interaction Design',
     website: ''
   },
   {
     id: 'brand8',
     imageUrl: '/images/brand/building-wave.jpg.png',
-    title: 'Urban Sustainability',
-    description: 'Created architectural visualizations that blend modern urban design with natural wave patterns to promote sustainable building practices.',
-    services: 'Architecture Viz',
+    title: 'Fluid Architecture',
+    description: 'Where built environments dance with natural rhythms. This project reimagines the relationship between structure and flow, creating spaces that breathe with life.',
+    services: 'Spatial Design',
     website: ''
   },
   {
     id: 'brand9',
     imageUrl: '/images/brand/salt-comment.jpg.png',
-    title: 'Community Engagement Platform',
-    description: 'Built an interactive comment system that enhances community engagement through thoughtful UI design and real-time interaction features.',
-    services: 'Platform Design',
+    title: 'Collective Voice',
+    description: 'Amplifying individual perspectives within a unified whole. A meditation on community, dialogue, and the power of shared narratives in shaping our digital landscapes.',
+    services: 'Systems Design',
     website: ''
   },
   {
     id: 'brand10',
     imageUrl: '/images/brand/sync-dinner.jpg.png',
-    title: 'Food Tech Innovation',
-    description: 'Designed a synchronized dinner planning application that connects families and friends through shared meal experiences and smart coordination.',
-    services: 'App Design',
+    title: 'Synchronized Moments',
+    description: 'Celebrating the rituals that bind us together. This work explores how technology can enhance rather than diminish the intimate moments that define human experience.',
+    services: 'Experience Craft',
     website: ''
   },
 ];
 
 const CaseStudyPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const [searchParams] = useSearchParams();
+  const clickedImage = searchParams.get('image');
+  
   const study = caseStudies.find(cs => cs.id === id);
 
   if (!study) {
@@ -121,7 +124,15 @@ const CaseStudyPage: React.FC = () => {
       </div>
       {/* Hero Media */}
       <div className="flex-1 relative bg-black flex items-center justify-center">
-        {study.videoUrl ? (
+        {clickedImage ? (
+          // Show the clicked image from bento grid
+          <img
+            src={clickedImage}
+            alt={study.title}
+            className="absolute inset-0 w-full h-full object-contain object-center"
+          />
+        ) : study.videoUrl ? (
+          // Show video if no clicked image and video exists
           <video
             src={study.videoUrl}
             autoPlay
@@ -131,6 +142,7 @@ const CaseStudyPage: React.FC = () => {
             className="absolute inset-0 w-full h-full object-contain object-center"
           />
         ) : (
+          // Show default image
           <img
             src={study.imageUrl}
             alt={study.title}

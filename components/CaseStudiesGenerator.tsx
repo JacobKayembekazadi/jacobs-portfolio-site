@@ -112,20 +112,21 @@ const CaseStudiesGenerator: React.FC = () => {
       
       <p className="text-gray-300 mb-4">{study.description}</p>
       
-      {/* Image grid preview */}
+      {/* Image grid preview (lazy-loaded) */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
-        {study.images.slice(0, 8).map((image, idx) => (
+        {study.images.slice(0, 4).map((image, idx) => (
           <div key={idx} className="aspect-square rounded-lg overflow-hidden bg-gray-800">
             <img
               src={image.path}
               alt={image.description}
+              loading="lazy"
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
             />
           </div>
         ))}
-        {study.images.length > 8 && (
+        {study.images.length > 4 && (
           <div className="aspect-square rounded-lg bg-gray-800 flex items-center justify-center">
-            <span className="text-gray-400 text-sm">+{study.images.length - 8} more</span>
+            <span className="text-gray-400 text-sm">+{study.images.length - 4} more</span>
           </div>
         )}
       </div>
@@ -180,6 +181,7 @@ const CaseStudiesGenerator: React.FC = () => {
                   <img
                     src={image.path}
                     alt={image.description}
+                    loading="lazy"
                     className="w-full h-full object-cover"
                   />
                 </div>

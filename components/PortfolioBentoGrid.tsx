@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BENTO_COLORS } from '../constants';
 
 interface BentoGridData {
@@ -23,7 +24,7 @@ const ALL_IMAGE_PATHS: string[] = [
   '/images/brand-image-5.png',
   '/images/brand-image-6.png',
   '/images/brand-image-7.png',
-  // Misc project showcase
+  // Project showcase images (verified to exist)
   '/images/project-showcase-89.png',
   '/images/project-showcase-147.png',
   '/images/project-showcase-214.png',
@@ -31,15 +32,84 @@ const ALL_IMAGE_PATHS: string[] = [
   '/images/project-showcase-152.jpg',
   '/images/project-showcase-43.jpg',
   '/images/project-showcase-38.jpg',
+  '/images/project-showcase-52.jpg',
+  '/images/project-showcase-51.jpg',
+  '/images/project-showcase-50.jpg',
+  '/images/project-showcase-49.jpg',
+  '/images/project-showcase-48.jpg',
+  '/images/project-showcase-47.jpg',
+  '/images/project-showcase-46.jpg',
+  '/images/project-showcase-45.jpg',
+  '/images/project-showcase-44.jpg',
+  '/images/project-showcase-42.jpg',
+  '/images/project-showcase-41.jpg',
+  '/images/project-showcase-40.jpg',
+  '/images/project-showcase-39.jpg',
+  '/images/project-showcase-37.jpg',
+  '/images/project-showcase-36.jpg',
+  '/images/project-showcase-35.jpg',
+  '/images/project-showcase-34.jpg',
+  '/images/project-showcase-33.jpg',
+  '/images/project-showcase-32.jpg',
+  '/images/project-showcase-31.jpg',
+  '/images/project-showcase-30.jpg',
+  '/images/project-showcase-29.jpg',
+  '/images/project-showcase-28.jpg',
+  '/images/project-showcase-27.jpg',
+  '/images/project-showcase-26.jpg',
+  '/images/project-showcase-25.jpg',
+  '/images/project-showcase-24.jpg',
+  '/images/project-showcase-23.jpg',
+  '/images/project-showcase-22.jpg',
+  '/images/project-showcase-21.jpg',
+  '/images/project-showcase-20.jpg',
+  '/images/project-showcase-19.jpg',
+  '/images/project-showcase-18.jpg',
+  '/images/project-showcase-17.jpg',
+  '/images/project-showcase-16.jpg',
+  '/images/project-showcase-15.jpg',
+  '/images/project-showcase-14.jpg',
+  '/images/project-showcase-13.jpg',
+  '/images/project-showcase-12.jpg',
+  '/images/project-showcase-11.jpg',
+  '/images/project-showcase-10.jpg',
+  '/images/project-showcase-9.jpg',
+  '/images/project-showcase-8.jpg',
+  '/images/project-showcase-7.jpg',
+  '/images/project-showcase-6.jpg',
+  '/images/project-showcase-5.jpg',
+  '/images/project-showcase-4.jpg',
+  '/images/project-showcase-3.jpg',
+  '/images/project-showcase-2.jpg',
+  '/images/project-showcase-1.jpg',
+  '/images/project-showcase-69.png',
+  '/images/project-showcase-67.png',
+  '/images/project-showcase-68.png',
+  '/images/project-showcase-145.jpg',
+  '/images/project-showcase-144.jpg',
+  '/images/project-showcase-143.jpg',
+  '/images/project-showcase-141.jpg',
+  '/images/project-showcase-140.jpg',
+  '/images/project-showcase-139.jpg',
+  '/images/project-showcase-59.png',
+  '/images/project-showcase-60.png',
+  '/images/project-showcase-75.png',
+  '/images/project-showcase-74.png',
+  '/images/project-showcase-71.png',
+  '/images/project-showcase-72.png',
+  '/images/project-showcase-73.png',
+  '/images/project-showcase-70.png',
+  '/images/project-showcase-213.png',
+  '/images/project-showcase-212.png',
+  '/images/project-showcase-88.png',
   // Whisk series
   '/images/whisk-1.jpg',
   '/images/whisk-2.jpg',
   '/images/whisk-3.jpg',
   '/images/whisk-4.jpg',
-  // Light on campus series
-  '/images/light-on-campus-1.png',
-  '/images/light-on-campus-7.jpg',
-  '/images/light-on-campus-8.jpg'
+  // AI Advertising
+  '/images/ai-advertising-5.jpg',
+  '/images/ai-advertising-6.jpg'
 ];
 
 // Helper to get prefix before second dash so "project-showcase-25.jpg" -> "project-showcase"
@@ -131,7 +201,118 @@ const generateBentoData = () => {
 };
 
 const PortfolioBentoGrid: React.FC = () => {
+  const navigate = useNavigate();
   const BENTO_DATA = useMemo(() => generateBentoData(), []);
+
+  const handleImageClick = (imagePath: string) => {
+    // Extract project identifier from image path
+    const filename = imagePath.split('/').pop() || '';
+    
+    // Map image paths to available case study IDs (brand1-brand10)
+    const imageToCaseStudyMap: { [key: string]: string } = {
+      // Brand images - direct mapping
+      'brand-image-1.png': 'brand1',
+      'brand-image-2.png': 'brand2', 
+      'brand-image-3.png': 'brand3',
+      'brand-image-4.png': 'brand4',
+      'brand-image-5.png': 'brand5',
+      'brand-image-6.png': 'brand6',
+      'brand-image-7.png': 'brand7',
+      
+      // Whisk images - map to food-related case study
+      'whisk-1.jpg': 'brand10', // Food Tech Innovation
+      'whisk-2.jpg': 'brand10',
+      'whisk-3.jpg': 'brand10',
+      'whisk-4.jpg': 'brand10',
+      
+      // AI Advertising - map to brand case studies
+      'ai-advertising-5.jpg': 'brand1',
+      'ai-advertising-6.jpg': 'brand2',
+      
+      // Project showcase images - distribute across available case studies
+      'project-showcase-89.png': 'brand1',
+      'project-showcase-147.png': 'brand2',
+      'project-showcase-214.png': 'brand3',
+      'project-showcase-215.png': 'brand4',
+      'project-showcase-152.jpg': 'brand5',
+      'project-showcase-43.jpg': 'brand6',
+      'project-showcase-38.jpg': 'brand7',
+      'project-showcase-52.jpg': 'brand8',
+      'project-showcase-51.jpg': 'brand9',
+      'project-showcase-50.jpg': 'brand10',
+      'project-showcase-49.jpg': 'brand1',
+      'project-showcase-48.jpg': 'brand2',
+      'project-showcase-47.jpg': 'brand3',
+      'project-showcase-46.jpg': 'brand4',
+      'project-showcase-45.jpg': 'brand5',
+      'project-showcase-44.jpg': 'brand6',
+      'project-showcase-42.jpg': 'brand7',
+      'project-showcase-41.jpg': 'brand8',
+      'project-showcase-40.jpg': 'brand9',
+      'project-showcase-39.jpg': 'brand10',
+      'project-showcase-37.jpg': 'brand1',
+      'project-showcase-36.jpg': 'brand2',
+      'project-showcase-35.jpg': 'brand3',
+      'project-showcase-34.jpg': 'brand4',
+      'project-showcase-33.jpg': 'brand5',
+      'project-showcase-32.jpg': 'brand6',
+      'project-showcase-31.jpg': 'brand7',
+      'project-showcase-30.jpg': 'brand8',
+      'project-showcase-29.jpg': 'brand9',
+      'project-showcase-28.jpg': 'brand10',
+      'project-showcase-27.jpg': 'brand1',
+      'project-showcase-26.jpg': 'brand2',
+      'project-showcase-25.jpg': 'brand3',
+      'project-showcase-24.jpg': 'brand4',
+      'project-showcase-23.jpg': 'brand5',
+      'project-showcase-22.jpg': 'brand6',
+      'project-showcase-21.jpg': 'brand7',
+      'project-showcase-20.jpg': 'brand8',
+      'project-showcase-19.jpg': 'brand9',
+      'project-showcase-18.jpg': 'brand10',
+      'project-showcase-17.jpg': 'brand1',
+      'project-showcase-16.jpg': 'brand2',
+      'project-showcase-15.jpg': 'brand3',
+      'project-showcase-14.jpg': 'brand4',
+      'project-showcase-13.jpg': 'brand5',
+      'project-showcase-12.jpg': 'brand6',
+      'project-showcase-11.jpg': 'brand7',
+      'project-showcase-10.jpg': 'brand8',
+      'project-showcase-9.jpg': 'brand9',
+      'project-showcase-8.jpg': 'brand10',
+      'project-showcase-7.jpg': 'brand1',
+      'project-showcase-6.jpg': 'brand2',
+      'project-showcase-5.jpg': 'brand3',
+      'project-showcase-4.jpg': 'brand4',
+      'project-showcase-3.jpg': 'brand5',
+      'project-showcase-2.jpg': 'brand6',
+      'project-showcase-1.jpg': 'brand7',
+      'project-showcase-69.png': 'brand8',
+      'project-showcase-67.png': 'brand9',
+      'project-showcase-68.png': 'brand10',
+      'project-showcase-145.jpg': 'brand1',
+      'project-showcase-144.jpg': 'brand2',
+      'project-showcase-143.jpg': 'brand3',
+      'project-showcase-141.jpg': 'brand4',
+      'project-showcase-140.jpg': 'brand5',
+      'project-showcase-139.jpg': 'brand6',
+      'project-showcase-59.png': 'brand7',
+      'project-showcase-60.png': 'brand8',
+      'project-showcase-75.png': 'brand9',
+      'project-showcase-74.png': 'brand10',
+      'project-showcase-71.png': 'brand1',
+      'project-showcase-72.png': 'brand2',
+      'project-showcase-73.png': 'brand3',
+      'project-showcase-70.png': 'brand4',
+      'project-showcase-213.png': 'brand5',
+      'project-showcase-212.png': 'brand6',
+      'project-showcase-88.png': 'brand7'
+    };
+    
+    const caseStudyId = imageToCaseStudyMap[filename] || 'brand1'; // Default fallback
+    // Pass the clicked image as a query parameter
+    navigate(`/case-study/${caseStudyId}?image=${encodeURIComponent(imagePath)}`);
+  };
 
   const getGridSpanClass = (size: string) => {
     const spanMap: { [key: string]: string } = {
@@ -163,6 +344,7 @@ const PortfolioBentoGrid: React.FC = () => {
         <div
           key={item.id}
           className={`${baseClasses} p-0`}
+          onClick={() => handleImageClick(item.content.image || '')}
           style={{
             backgroundColor: BENTO_COLORS.CARD_BACKGROUND,
             borderRadius: '8px',

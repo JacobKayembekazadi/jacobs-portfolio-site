@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
@@ -12,8 +12,8 @@ import FAQSection from './components/FAQSection';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
 import AINetworkBackground from './components/AINetworkBackground';
-import CaseStudyPage from './components/CaseStudyPage';
-import CaseStudiesGenerator from './components/CaseStudiesGenerator';
+const CaseStudyPage = React.lazy(() => import('./components/CaseStudyPage'));
+const CaseStudiesGenerator = React.lazy(() => import('./components/CaseStudiesGenerator'));
 import { MAIN_BG_COLOR, TEXT_COLOR_LIGHT } from './constants';
 
 const MainContent = () => (
@@ -39,15 +39,17 @@ const MainContent = () => (
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <div className={`min-h-screen font-sans ${MAIN_BG_COLOR} ${TEXT_COLOR_LIGHT} relative`}>
-        <div className="aurora-bg"></div>
-        <div className="grid-pattern"></div>
-        <Routes>
-          <Route path="/" element={<MainContent />} />
-          <Route path="/case-study/:id" element={<CaseStudyPage />} />
-          <Route path="/case-studies" element={<CaseStudiesGenerator />} />
-        </Routes>
-      </div>
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-white">Loading...</div>}>
+        <div className={`min-h-screen font-sans ${MAIN_BG_COLOR} ${TEXT_COLOR_LIGHT} relative`}>
+          <div className="aurora-bg"></div>
+          <div className="grid-pattern"></div>
+          <Routes>
+            <Route path="/" element={<MainContent />} />
+            <Route path="/case-study/:id" element={<CaseStudyPage />} />
+            <Route path="/case-studies" element={<CaseStudiesGenerator />} />
+          </Routes>
+        </div>
+      </Suspense>
     </BrowserRouter>
   );
 };
